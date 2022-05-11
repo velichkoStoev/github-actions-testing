@@ -1,54 +1,20 @@
 name: Features
 on:
+  workflow_dispatch:
+    inputs:
+      release_candidate:
+        description: 'Whether the build is part of an RC'
+        type: string
+        required: false
+        default: 'false'
   issue_comment:
     types: [ created ]
 
 jobs:
   job_1:
-    if: >
-      (github.event_name == 'workflow_dispatch') ||
-      (
-        github.event.issue.pull_request &&
-        (
-          contains(github.event.comment.body, 'default') ||
-          contains(github.event.comment.body, 'features subset') ||
-          contains(github.event.comment.body, 'features all')
-        )
-      )
     name: I do that
     runs-on: ubuntu-latest
     steps:
       - name: I do it, yes
         run: |
-          echo "EXECUTING"
-
-  job_2:
-    name: Features wohoo
-    runs-on: ubuntu-latest
-    needs: [job_1]
-    if: >
-      github.event.issue.pull_request &&
-      (
-        contains(github.event.comment.body, 'default') ||
-        contains(github.event.comment.body, 'features subset') ||
-        contains(github.event.comment.body, 'features all')
-      )
-    steps:
-      - name: Set run type to 'all'
-        if: contains(github.event.comment.body, 'features all')
-        shell: bash
-        run: echo "RUN_TYPE=all" >> $GITHUB_ENV
-
-      - name: Set run type to 'codeowners_subset'
-        if: >
-          (
-            contains(github.event.comment.body, 'default') ||
-            contains(github.event.comment.body, 'features subset')
-          )
-        shell: bash
-        run: echo "RUN_TYPE=subset" >> $GITHUB_ENV
-
-      - name: Debug run type
-        shell: bash
-        run: |
-          echo "RUN_TYPE: ${{ env.RUN_TYPE }}"
+          echo  ${{ fromJSON(github.event.inputs.release_candidate) }}

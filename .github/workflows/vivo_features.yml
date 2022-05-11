@@ -17,4 +17,4 @@ jobs:
     steps:
       - name: I do it, yes
         run: |
-          echo  ${{ fromJSON(github.event.inputs.release_candidate) }}
+          echo  ${{ fromJSON(github.event.inputs.release_candidate || 'false') || 'alternative' }}

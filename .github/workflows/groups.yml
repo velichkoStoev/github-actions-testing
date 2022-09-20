@@ -7,7 +7,7 @@ jobs:
     name: Test groups
     runs-on: ubuntu-latest
     steps:
-      - name: Set debug level
+      - id: check-debug-enabled
         env:
           DEBUG_ENABLED: {{ $secrets.ACTIONS_STEP_DEBUG }}
         if: "${{ env.DEBUG_ENABLED != '' }}"

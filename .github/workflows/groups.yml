@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set debug level
-      - env:
+        env:
           DEBUG_ENABLED: {{ $secrets.ACTIONS_STEP_DEBUG }}
         if: "${{ env.DEBUG_ENABLED != '' }}"
         run: echo "test mest vest"

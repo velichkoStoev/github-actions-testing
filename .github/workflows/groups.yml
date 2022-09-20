@@ -7,11 +7,11 @@ jobs:
     name: Test groups
     runs-on: ubuntu-latest
     steps:
-      - id: check-debug-enabled
+      - id: my-key
         env:
-          DEBUG_ENABLED: {{ $secrets.ACTIONS_STEP_DEBUG }}
+            DEBUG_ENABLED: ${{ secrets.ACTIONS_STEP_DEBUG }}
         if: "${{ env.DEBUG_ENABLED != '' }}"
-        run: echo "test mest vest"
+        run: echo "DEFINED"
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:

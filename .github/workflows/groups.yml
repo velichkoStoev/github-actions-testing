@@ -11,7 +11,7 @@ jobs:
         env:
             DEBUG_ENABLED: ${{ secrets.ACTIONS_STEP_DEBUG }}
         if: "${{ env.DEBUG_ENABLED != '' }}"
-        run: echo "DEFINED"
+        run: echo "CI_LOG_LEVEL=error" >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:

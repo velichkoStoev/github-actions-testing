@@ -1,0 +1,13 @@
+name: Features
+on:
+  workflow_dispatch:
+
+jobs:
+  job_1:
+    name: Test groups
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' # Not needed with a .ruby-version file
+      - run: ruby groups.rb

@@ -17,3 +17,7 @@ jobs:
         with:
           ruby-version: '3.0' # Not needed with a .ruby-version file
       - run: ruby .github/workflows/groups.rb
+      - name: print ENV
+        shell: bash
+        run: echo $CI
+

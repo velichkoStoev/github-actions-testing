@@ -2,11 +2,11 @@ name: Features
 on:
   workflow_dispatch:
     inputs:
-      release_candidate:
-        description: 'Whether the build is part of an RC'
+      kubernetes_namespaces_basename:
+        description: 'kubernetes_namespaces_basename'
         type: string
         required: false
-        default: 'false'
+        default: 'namespace'
   issue_comment:
     types: [ created ]
 
@@ -15,6 +15,16 @@ jobs:
     name: I do that
     runs-on: ubuntu-latest
     steps:
-      - name: I do it, yes
-        run: |
-          echo ${{ github.event.inputs.release_candidate == 'true' && 'ci.release-candidate=true' || 'alternative' }}
+      - shell: bash
+      run: |
+        # Set ENV variables
+        echo "KUBERNETES_NAMESPACE_BASE=${{ inputs.kubernetes_namespaces_basename }}" >> $GITHUB_ENV
+
+      - shell: bash
+      run: |
+        # Validate Kubernetes namespace name
+        regex="[a-z0-9]([-a-z0-9]*[a-z0-9])?"
+        if ! [[ {{ env.KUBERNETES_NAMESPACE_BASE }} =~ ^$regex$ ]]; then
+          echo "Invalid Kubernetes namespace base name! Should match the following regex: $regex"
+          exit 1
+        fi

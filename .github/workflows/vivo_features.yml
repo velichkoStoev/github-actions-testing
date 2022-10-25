@@ -25,6 +25,6 @@ jobs:
           # Validate Kubernetes namespace name
           regex="[a-z0-9]([-a-z0-9]*[a-z0-9])?"
           if ! [[ ${{ env.KUBERNETES_NAMESPACE_BASE }} =~ ^$regex$ ]]; then
-            echo "Invalid Kubernetes namespace ${{ env.KUBERNETES_NAMESPACE_BASE }}! Should match the following regex: $regex"
+            echo "Invalid Kubernetes namespace ${{ env.KUBERNETES_NAMESPACE_BASE }}! Should match the following regex: <code>$regex</code>" >> $GITHUB_STEP_SUMMARY
             exit 1
           fi

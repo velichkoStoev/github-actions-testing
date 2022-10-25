@@ -16,15 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - shell: bash
-      run: |
-        # Set ENV variables
-        echo "KUBERNETES_NAMESPACE_BASE=${{ inputs.kubernetes_namespaces_basename }}" >> $GITHUB_ENV
+        run: |
+          # Set ENV variables
+          echo "KUBERNETES_NAMESPACE_BASE=${{ inputs.kubernetes_namespaces_basename }}" >> $GITHUB_ENV
 
       - shell: bash
-      run: |
-        # Validate Kubernetes namespace name
-        regex="[a-z0-9]([-a-z0-9]*[a-z0-9])?"
-        if ! [[ {{ env.KUBERNETES_NAMESPACE_BASE }} =~ ^$regex$ ]]; then
-          echo "Invalid Kubernetes namespace base name! Should match the following regex: $regex"
-          exit 1
-        fi
+        run: |
+          # Validate Kubernetes namespace name
+          regex="[a-z0-9]([-a-z0-9]*[a-z0-9])?"
+          if ! [[ {{ env.KUBERNETES_NAMESPACE_BASE }} =~ ^$regex$ ]]; then
+            echo "Invalid Kubernetes namespace base name! Should match the following regex: $regex"
+            exit 1
+          fi

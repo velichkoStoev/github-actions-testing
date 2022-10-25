@@ -27,4 +27,6 @@ jobs:
           if ! [[ ${{ env.KUBERNETES_NAMESPACE_BASE }} =~ ^$regex$ ]]; then
             echo "Invalid Kubernetes namespace ${{ env.KUBERNETES_NAMESPACE_BASE }}! Should match the following regex: $regex"
             exit 1
+          else
+            echo "The ${{ env.KUBERNETES_NAMESPACE_BASE }} namespace is a valid one."
           fi
